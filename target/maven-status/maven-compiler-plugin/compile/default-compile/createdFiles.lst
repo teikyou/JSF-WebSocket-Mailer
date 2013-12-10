@@ -1,0 +1,14 @@
+jp/co/oracle/samples/tasks/SpecifiedNodeMailHeaderHandleTask.class
+jp/co/oracle/samples/mgdBean/MessageReceiveMgdBean.class
+jp/co/oracle/samples/websockets/InboxCheck.class
+jp/co/oracle/samples/mgdBean/IndexLoginMgdBean.class
+jp/co/oracle/samples/beans/MailHeaderModel$1.class
+jp/co/oracle/samples/tasks/InboxCheckRunnableTask.class
+jp/co/oracle/samples/phaselisteners/AjaxViewExpirationCheckListener.class
+jp/co/oracle/samples/tasks/AllFolderHandlerTask.class
+jp/co/oracle/samples/tasks/SpecifiedMessageHandlerTask.class
+jp/co/oracle/samples/beans/MailHeader.class
+jp/co/oracle/samples/websockets/InboxCheck$1.class
+jp/co/oracle/samples/msgutil/MessageDumpUtil.class
+jp/co/oracle/samples/beans/FolderName.class
+jp/co/oracle/samples/beans/MailHeaderModel.class
