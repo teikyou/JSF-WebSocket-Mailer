@@ -42,9 +42,14 @@ public class InboxCheck {
 
     private static final Logger logger = Logger.getLogger(InboxCheck.class.getPackage().getName());
 
+    @Resource
+    ManagedThreadFactory threadFactory;
+        
     @Inject
     IndexLoginMgdBean login;
 
+    InboxCheckRunnableTask invokeCheck = null;
+    
     @OnOpen
     public void onOpen(javax.websocket.Session session) {
         logger.log(Level.INFO, "Connection is opened: {0}", session.getId());
@@ -54,6 +59,9 @@ public class InboxCheck {
 
     @OnClose
     public void onClose(javax.websocket.Session session) {
+        if(invokeCheck != null){
+            invokeCheck.terminateRealTimeCheck();
+        }
         logger.log(Level.INFO, "Connection is closed: {0}", session.getId());
     }
 
@@ -92,11 +100,8 @@ public class InboxCheck {
         }
     }
 
-    @Resource
-    ManagedThreadFactory threadFactory;
-
     private void newInboxCheckThreadWithRetryCount(int maxCount, Folder folder, javax.websocket.Session session) {
-        InboxCheckRunnableTask invokeCheck = new InboxCheckRunnableTask(folder);
+        invokeCheck = new InboxCheckRunnableTask(folder);
         Thread runTask = threadFactory.newThread(invokeCheck);
         runTask.start();
     }

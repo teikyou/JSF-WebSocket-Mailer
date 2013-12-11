@@ -23,12 +23,18 @@ public class InboxCheckRunnableTask implements Runnable {
         Thread.sleep(MAIL_CHECK_IDLE_TIME);
         int count = folder.getMessageCount();
     }
+    
+    boolean isRunnable = true;
+    
+    public void terminateRealTimeCheck(){
+        isRunnable = false;
+    }
 
     @Override
     public void run() {
 
         boolean idleIsAvailable = true;
-        while (true) {
+        while (isRunnable) {
             // IMAPFolder のインスタンスで isIdleEnable が true の時実行
             if (folder instanceof IMAPFolder) {
                 IMAPFolder ifolder = (IMAPFolder) folder;
