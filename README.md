@@ -1,7 +1,6 @@
 JSF-WebSocket-Mailer
 ====================
 
-JSF-WebSocket-Mailer is Licensed under the Apache License, Version 2.0
 JSF-WebSocket-Mailer は Apache License 2.0 に基づいてリリースされています。
 
 Copyright 2013 Yoshio Terada
@@ -13,3 +12,4 @@ http://www.apache.org/licenses/LICENSE-2.0
 適用される法律または書面での同意によって命じられない限り、本ライセンスに基づいて頒布されるソフトウェアは、明示黙示を問わず、いかなる保証も条件もなしに「現状のまま」頒布されます。本ライセンスでの権利と制限を規定した文言については、本ライセンスを参照してください。 
 
 
+JSF-WebSocket-Mailer is Licensed under the Apache License, Version 2.0
