@@ -79,10 +79,15 @@
             </p:layout>  
         </h:form>
 
-        <p:ajaxStatus  onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
+        <p:ajaxStatus  onstart="PF('statusDialog').show();" onerror="PF('ErrorDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
         <p:dialog  modal="true" widgetVar="statusDialog" header="処理中"   
                    draggable="false" closable="false">  
             <p:graphicImage value="/resources/imgs/ajaxloadingbar.gif" />  
+        </p:dialog>
+        <p:dialog  modal="true" widgetVar="ErrorDialog" header="エラー・発生"   
+                   draggable="false" closable="false">
+            エラーが発生しました。<br/>
+            <A HREF="/faces/index.xhtml">ログイン画面へ戻る</A>
         </p:dialog>
     </h:body>
 </html>

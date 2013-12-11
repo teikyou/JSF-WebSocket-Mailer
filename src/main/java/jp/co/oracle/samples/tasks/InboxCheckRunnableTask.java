@@ -1,3 +1,19 @@
+/*
+* Copyright 2013 Yoshio Terada
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 package jp.co.oracle.samples.tasks;
 
 import com.sun.mail.imap.IMAPFolder;
@@ -5,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.Folder;
 import javax.mail.MessagingException;
+
 /**
  *
  * @author Yoshio Terada
@@ -23,10 +40,10 @@ public class InboxCheckRunnableTask implements Runnable {
         Thread.sleep(MAIL_CHECK_IDLE_TIME);
         int count = folder.getMessageCount();
     }
-    
+
     boolean isRunnable = true;
-    
-    public void terminateRealTimeCheck(){
+
+    public void terminateRealTimeCheck() {
         isRunnable = false;
     }
 
@@ -42,25 +59,27 @@ public class InboxCheckRunnableTask implements Runnable {
                     try {
                         ifolder.idle();
                     } catch (javax.mail.FolderClosedException fce) {
-
+                        logger.log(Level.SEVERE, "IMAP Folder closed:", fce);
+                        isRunnable = false;
                     } catch (MessagingException ex) {
                         if (ex.getMessage().contains("IDLE not supported")) {
                             idleIsAvailable = false;
                         } else {
                             logger.log(Level.SEVERE, "IMAP Folder & Something error occured;", ex);
-                            return;
+                            isRunnable = false;
                         }
                     }
                 } else {
                     try {
                         executeCheckForIdleDisable();
                     } catch (InterruptedException | MessagingException ime) {
-                        logger.log(Level.SEVERE, "THis is not IMAP Folder : ", ime);
-                        return;
+                        logger.log(Level.SEVERE, "Some error occured on executeCheckForIdleDisable() : ", ime);
+                        isRunnable = false;
                     }
                 }
             } else {
-                return;
+                logger.log(Level.SEVERE, "THis is not IMAP Folder.");
+                isRunnable = false;
             }
         }
 
