@@ -31,7 +31,8 @@ public class InboxCheckRunnableTask implements Runnable {
     private final static int MAIL_CHECK_IDLE_TIME = 20000;
     Folder folder;
     private static final Logger logger = Logger.getLogger(InboxCheckRunnableTask.class.getPackage().getName());
-
+    volatile boolean isRunnable = true;
+    
     public InboxCheckRunnableTask(Folder folder) {
         this.folder = folder;
     }
@@ -40,8 +41,6 @@ public class InboxCheckRunnableTask implements Runnable {
         Thread.sleep(MAIL_CHECK_IDLE_TIME);
         int count = folder.getMessageCount();
     }
-
-    boolean isRunnable = true;
 
     public void terminateRealTimeCheck() {
         isRunnable = false;
@@ -55,7 +54,7 @@ public class InboxCheckRunnableTask implements Runnable {
             // IMAPFolder のインスタンスで isIdleEnable が true の時実行
             if (folder instanceof IMAPFolder) {
                 IMAPFolder ifolder = (IMAPFolder) folder;
-                if (idleIsAvailable == true) {
+                if (idleIsAvailable) {
                     try {
                         ifolder.idle();
                     } catch (javax.mail.FolderClosedException fce) {
@@ -82,6 +81,5 @@ public class InboxCheckRunnableTask implements Runnable {
                 isRunnable = false;
             }
         }
-
     }
 }
